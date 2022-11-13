@@ -10,9 +10,11 @@ function ManajemenBuku() {
 
   // PART EVENT HANDLING
   function showCreateForm() {
-    setFormMode("show");
+    setInputForm("");
+    setFormMode("create");
   }
-  function showEditForm() {
+  function showEditForm(book) {
+    setInputForm(book);
     setFormMode("show");
   }
 
@@ -40,15 +42,28 @@ function ManajemenBuku() {
 
   function submitForm(event) {
     event.preventDefault();
-    axios
-      .post("http://localhost:4000/book/add", inputForm)
-      .then(() => {
-        alert("Data berhasil ditambahkan!");
-        retrieveData();
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    if (formMode === "create") {
+      axios
+        .post("http://localhost:4000/book/add", inputForm)
+        .then(() => {
+          alert("Data berhasil ditambahkan!");
+          retrieveData();
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    }
+    if (formMode === "edit") {
+      axios
+        .put("http://localhost:4000/book/update/" + inputForm._id, inputForm)
+        .then(() => {
+          retrieveData();
+          alert("Data berhasil diubah!");
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    }
   }
 
   return (
@@ -59,7 +74,7 @@ function ManajemenBuku() {
       </button>
 
       {/* input form */}
-      {formMode === "show" && (
+      {formMode !== "" && (
         <div id="form" className="card py-2 my-3 bg-secondary">
           <div className="card-body">
             <h4>Form Buku</h4>
@@ -70,6 +85,7 @@ function ManajemenBuku() {
                   name="judul"
                   className="form-control mx-2"
                   placeholder="Judul..."
+                  value={inputForm.judul || ""}
                   onChange={handleJudul}
                 />
               </div>
@@ -79,6 +95,7 @@ function ManajemenBuku() {
                   name="pengarang"
                   className="form-control mx-2"
                   placeholder="Pengarang..."
+                  value={inputForm.pengarang || ""}
                   onChange={handlePengarang}
                 />
               </div>

@@ -1,8 +1,8 @@
 import React from "react";
 
 function TabelBuku({ showEdit, books }) {
-  function editData() {
-    showEdit();
+  function editData(book) {
+    showEdit(book);
   }
   return (
     <div>
@@ -26,7 +26,7 @@ function TabelBuku({ showEdit, books }) {
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-warning mx-2"
-                  onClick={() => editData()}
+                  onClick={() => editData(book)}
                 >
                   Edit
                 </button>
