@@ -34,7 +34,7 @@ function TabelBuku({ showEdit, books }) {
                   type="button"
                   class="btn btn-sm btn-outline-danger mx-2"
                 >
-                  Danger
+                  Delete
                 </button>
               </td>
             </tr>
