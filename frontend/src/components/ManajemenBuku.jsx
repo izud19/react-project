@@ -66,6 +66,18 @@ function ManajemenBuku() {
     }
   }
 
+  function deleteOne(book) {
+    axios
+      .delete("http://localhost:4000/book/delete/" + book._id)
+      .then(() => {
+        retrieveData();
+        alert("Data berhasil dihapus!");
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
   return (
     <div className="container mt-3">
       <h1 className="text-center">Manajemen Buku</h1>
@@ -112,7 +124,11 @@ function ManajemenBuku() {
       )}
 
       {/* tabel data buku */}
-      <TabelBuku showEdit={showEditForm} books={books} />
+      <TabelBuku
+        showEdit={showEditForm}
+        books={books}
+        requestToDelete={deleteOne}
+      />
       {/* <p>{JSON.stringify(books)}</p> */}
     </div>
   );

@@ -1,8 +1,12 @@
 import React from "react";
 
-function TabelBuku({ showEdit, books }) {
+function TabelBuku({ showEdit, books, requestToDelete }) {
   function editData(book) {
     showEdit(book);
+  }
+
+  function deleteData(book) {
+    requestToDelete(book);
   }
   return (
     <div>
@@ -33,6 +37,7 @@ function TabelBuku({ showEdit, books }) {
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-danger mx-2"
+                  onClick={() => deleteData(book)}
                 >
                   Delete
                 </button>
