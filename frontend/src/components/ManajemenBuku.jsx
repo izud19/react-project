@@ -15,7 +15,7 @@ function ManajemenBuku() {
   }
   function showEditForm(book) {
     setInputForm(book);
-    setFormMode("show");
+    setFormMode("edit");
   }
 
   useEffect(() => {
